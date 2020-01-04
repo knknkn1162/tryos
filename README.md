@@ -50,6 +50,8 @@ Disassembly of section .text:
 
 # ベアメタル上での作業なので、built-in functionに関するcompile warningを消したい
 
+`-nostdlib -fno-builtin`をつけると良い。https://ja.wikipedia.org/wiki/%E3%83%95%E3%83%AA%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E7%92%B0%E5%A2%83 を参考にすること。
+
 ```
 print.c:3:6: warning: conflicting types for built-in function 'putc'; expected 'int(int,  void *)' [-Wbuiltin-declaration-mismatch]
     3 | void putc(char c) {
