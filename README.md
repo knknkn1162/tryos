@@ -6,6 +6,17 @@ This is tiny OS base on xv6-riscv
 
 + https://gist.github.com/knknkn1162/60c46e896bfdbd8d6e5b3fdc3d865a7d
 
+# TODO
+
+1. M-mode onlyでもある程度動作できるようにする
+
++ puts < printf
++ diskのread/write
+
+2. U-modeを加える。
+
+3. S-modeを加えて、pagingを有効にする
+
 # 0x80000000 にブレークポイントを貼りたい。
 
 ```sh
@@ -16,6 +27,8 @@ $ b _entry
 Breakpoint 1 at 0x80000000: file entry.S, line 7.
 $ c
 ```
+
+0x1000 -> 0x8000_0000 にとぶ。詳しくは、https://github.com/qemu/qemu/blob/v4.1.0/hw/riscv/virt.c#L53-L68 を参照にすると良い。
 
 # entrypointをきちんと仕掛ける
 
