@@ -6,12 +6,6 @@
 #define LINE_STATUS_REGISTER 5
 #define TRANSMIT_HOLDING_EMPTY (1<<5)
 
-
-
-void uartinit(void) {
-    return;
-}
-
 void uartputc(char c) {
     while(!(UART0_BASE[LINE_STATUS_REGISTER] & TRANSMIT_HOLDING_EMPTY)) ;
     UART0_BASE[TRANSMIT_HOLDING_REGISTER] = c;
