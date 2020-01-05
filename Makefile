@@ -17,7 +17,7 @@ all: clean kernel
 
 #(GCC) -c entry.S -o entry.o
 # riscv64-unknown-elf-ld -T kernel.lds entry.o -o kernel
-kernel: entry.o start.o uart.o print.o
+kernel: entry.o uart.o print.o start.o
 	$(LD) -T kernel.lds $^ -o $@
 
 run:

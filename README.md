@@ -11,6 +11,8 @@ This is tiny OS base on xv6-riscv
 1. M-mode onlyでもある程度動作できるようにする
 
 + puts < printf
++ 入力をconsoleから受け付けるようにする。
+  + context switchの実装
 + diskのread/write
 
 2. U-modeを加える。
@@ -74,3 +76,32 @@ print.c:2:1: note: 'putc' is declared in header '<stdio.h>'
   +++ |+#include <stdio.h>
     2 |
 ```
+
+# 入力動作がうまくいってない
+
++ からのbufが意図せず書き換わっているみたい。
+
+```
+Breakpoint 1, gets (buf=0x80002000 <buf> "", max=100) at print.c:20
+20	    for(i = 0; i < max;) {
+(gdb) s
+21	        char c = getc();
+(gdb) s
+getc () at print.c:8
+8	    return uartgetc();
+(gdb) s
+uartgetc () at uart.c:23
+23	    if(UART0_BASE[LINE_STATUS_REGISTER] & DATA_READY) {
+(gdb) s
+27	        return 0;
+(gdb) s
+29	}
+(gdb) s
+getc () at print.c:9
+9	}
+(gdb) s
+gets (buf=0x80002000 <buf> "@ ", max=100) at print.c:22
+22	        if(c == '\0') continue;
+```
+
+`static char buf[100]` のようにstaticをつけたことが原因ぽい。
